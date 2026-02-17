@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OwlOverDown TV - Live Streaming</title>
+    
+    <!-- SEO Meta -->
+    <meta name="author" content="Your Name">
+    <meta name="description" content="OwlOverDown TV - Best Live TV Streaming Experience">
+    <meta name="keywords" content="Live TV, Streaming, OwlOverDown, Online TV">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Modern CSS -->
+    <link rel="stylesheet" href="assets/css/modern.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/shoutbox.css">
+    <link rel="stylesheet" href="assets/css/favorites.css">
+    <link rel="stylesheet" href="assets/css/fix.css">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --accent-color: #ffe66d;
+            --dark-bg: #1a1b1f;
+            --darker-bg: #121316;
+            --card-bg: #1e1f23;
+            --text-light: #ffffff;
+            --text-gray: #a0a0a0;
+        }
+        
+        body {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Add your custom styles here */
+        .brand-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .brand-title h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .brand-title i {
+            color: var(--accent-color);
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="main-container" style="padding-top: 20px;">
+        
+        <!-- Brand Title -->
+        <div class="brand-title">
+            <h1><i class="fas fa-owl"></i> OwlOverDown TV <i class="fas fa-tv"></i></h1>
+        </div>
+        
+        <!-- Player Section -->
+        <div class="player-wrapper" id="playerWrapper">
+            <iframe id="playerFrame" src="player.php?stream=edge2/star-sports-1" allowfullscreen allow="autoplay; encrypted-media; playsinline"></iframe>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <input type="text" id="channelSearch" class="search-input" placeholder="Search channels...">
+            <div style="display: flex; gap: 10px;">
+                <a href="#" class="download-btn search-btn animate-pulse" style="white-space: nowrap;">
+                    <i class="fas fa-mobile-alt"></i> Mobile App
+                </a>
+                <a href="#" class="download-btn search-btn animate-pulse" style="background: linear-gradient(45deg, #00b09b, #96c93d); white-space: nowrap;">
+                    <i class="fas fa-tv"></i> TV App
+                </a>
+            </div>
+        </div>
+        
+        <!-- Category Navigation -->
+        <div class="category-nav">
+            <button class="category-btn active" data-category="*">All</button>
+            <button class="category-btn" data-category="favorites">⭐ Favorites</button>
+            <button class="category-btn" data-category="sports">🏆 Sports</button>
+            <button class='category-btn' data-category='bangla'>bangla</button>
+            <button class='category-btn' data-category='documentary'>documentary</button>
+            <button class='category-btn' data-category='english'>english</button>
+            <button class='category-btn' data-category='hindi'>hindi</button>
+            <button class='category-btn' data-category='inbangla'>inbangla</button>
+            <button class='category-btn' data-category='kids'>kids</button>
+            <button class='category-btn' data-category='music'>music</button>
+        </div>
+
+        <!-- Channel Grid -->
+        <div class="channel-grid">
+            <!-- Channel cards will remain the same as original -->
+            <!-- Copy all channel cards from original HTML here -->
+            <div class="channel-card" 
+                 data-title="t sports" 
+                 data-tags="sports"
+                 data-stream="edge2/tsports"
+                 onclick="playChannel('edge2/tsports')">
+                
+                <button class="favorite-btn" onclick="event.stopPropagation(); toggleFavorite('edge2/tsports', this)">
+                    <i class="far fa-heart"></i>
+                </button>
+                
+                <img src="https://tvassets.roarzone.info/images/102.png" 
+                     alt="T Sports"
+                     loading="lazy">
+                
+                <div class="channel-info">
+                    T Sports
+                </div>
+            </div>
+            <!-- Continue with all other channel cards... -->
+        </div>
+    </div>
+
+    <!-- Shoutbox -->
+    <div class="shoutbox-container collapsed" id="shoutboxContainer">
+        <div class="shoutbox-header" onclick="toggleShoutbox()">
+            <h3><i class="fas fa-comments"></i> <span class="shoutbox-title">Shoutbox</span></h3>
+            <button class="shoutbox-toggle" id="shoutboxToggle">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+        <div class="shoutbox-body" id="shoutboxBody">
+            <!-- Messages will load here -->
+        </div>
+        <div class="shoutbox-form" id="shoutboxForm">
+            <input type="text" id="shoutName" placeholder="Your name..." maxlength="50">
+            <textarea id="shoutMessage" placeholder="Your message..." maxlength="200"></textarea>
+            <button onclick="postShout()">Send</button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="modern-footer">
+        <div class="footer-content">
+            <!-- Useful Links -->
+            <div class="footer-section links-section">
+                <h3>Useful Links</h3>
+                <div class="link-grid">
+                    <a href="#" class="footer-link"><i class="fas fa-play-circle"></i> Media Server</a>
+                    <a href="#" class="footer-link"><i class="fas fa-server"></i> FTP Server</a>
+                    <a href="#" class="footer-link"><i class="fab fa-facebook"></i> Facebook Page</a>
+                    <a href="#" class="footer-link"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <p>&copy; Copyright <a href="#">OwlOverDown TV</a> 2024-2026 All right reserved</p>
+            <p>Developed by <a href="#">Your Name</a></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Favorites functionality
+        function getFavorites() {
+            const favs = localStorage.getItem('owl_favorites');
+            return favs ? JSON.parse(favs) : [];
+        }
+        
+        function saveFavorites(favorites) {
+            localStorage.setItem('owl_favorites', JSON.stringify(favorites));
+        }
+        
+        function toggleFavorite(streamName, btn) {
+            let favorites = getFavorites();
+            const index = favorites.indexOf(streamName);
+            
+            if (index > -1) {
+                favorites.splice(index, 1);
+                btn.querySelector('i').classList.remove('fas');
+                btn.querySelector('i').classList.add('far');
+                btn.classList.remove('active');
+            } else {
+                favorites.push(streamName);
+                btn.querySelector('i').classList.remove('far');
+                btn.querySelector('i').classList.add('fas');
+                btn.classList.add('active');
+            }
+            
+            saveFavorites(favorites);
+        }
+        
+        function playChannel(stream) {
+            document.getElementById('playerFrame').src = `player.php?stream=${stream}`;
+            // Scroll to player on mobile
+            if (window.innerWidth <= 768) {
+                document.getElementById('playerWrapper').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Load favorites on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const favorites = getFavorites();
+            document.querySelectorAll('.channel-card').forEach(card => {
+                const stream = card.dataset.stream;
+                const btn = card.querySelector('.favorite-btn');
+                if (favorites.includes(stream)) {
+                    btn.querySelector('i').classList.remove('far');
+                    btn.querySelector('i').classList.add('fas');
+                    btn.classList.add('active');
+                }
+            });
+        });
+        
+        // Search functionality
+        document.getElementById('channelSearch').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.channel-card').forEach(card => {
+                const title = card.dataset.title.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+        
+        // Category filtering
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                
+                if (category === '*') {
+                    document.querySelectorAll('.channel-card').forEach(card => card.style.display = '');
+                } else if (category === 'favorites') {
+                    const favorites = getFavorites();
+                    document.querySelectorAll('.channel-card').forEach(card => {
+                        if (favorites.includes(card.dataset.stream)) {
+                            card.style.display = '';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                } else {
+                    document.querySelectorAll('.channel-card').forEach(card => {
+                        const tags = card.dataset.tags ? card.dataset.tags.split(' ') : [];
+                        if (tags.includes(category)) {
+                            card.style.display = '';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <!-- Shoutbox Script -->
+    <script>
+        function toggleShoutbox() {
+            const container = document.getElementById('shoutboxContainer');
+            const toggle = document.getElementById('shoutboxToggle');
+            
+            container.classList.toggle('collapsed');
+            
+            if (!container.classList.contains('collapsed')) {
+                document.body.classList.add('shoutbox-open');
+                loadShouts();
+            } else {
+                document.body.classList.remove('shoutbox-open');
+            }
+        }
+        
+        let replyingTo = null;
+        
+        function loadShouts() {
+            fetch('shoutbox_api.php')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        const body = document.getElementById('shoutboxBody');
+                        body.innerHTML = data.messages.map(msg => {
+                            let replyHTML = '';
+                            if (msg.reply_to) {
+                                replyHTML = `
+                                    <div class="reply-to">
+                                        <span class="name">↩ ${msg.reply_to.name}</span>: ${msg.reply_to.message}
+                                    </div>
+                                `;
+                            }
+                            
+                            return `
+                                <div class="shoutbox-message" data-id="${msg.id}">
+                                    <div>
+                                        <span class="name">${msg.name}</span>
+                                        <span class="time">${msg.time}</span>
+                                    </div>
+                                    ${replyHTML}
+                                    <div class="text">${msg.message}</div>
+                                    <div class="reply-link" onclick="setReply(${msg.id}, '${msg.name.replace(/'/g, "\\'")}', '${msg.message.replace(/'/g, "\\'")}')">
+                                        Reply
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+                        body.scrollTop = body.scrollHeight;
+                    }
+                })
+                .catch(err => console.log('Shoutbox error:', err));
+        }
+        
+        function setReply(id, name, message) {
+            replyingTo = { id, name, message };
+            const messageBox = document.getElementById('shoutMessage');
+            messageBox.placeholder = `💬 Replying to ${name}...`;
+            messageBox.focus();
+        }
+        
+        function postShout() {
+            const name = document.getElementById('shoutName').value.trim() || 'Anonymous';
+            const message = document.getElementById('shoutMessage').value.trim();
+            
+            if (!message) {
+                alert('Please enter a message!');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('message', message);
+            if (replyingTo) {
+                formData.append('reply_to', replyingTo.id);
+            }
+            
+            fetch('shoutbox_api.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('shoutMessage').value = '';
+                    document.getElementById('shoutMessage').placeholder = 'Your message...';
+                    replyingTo = null;
+                    loadShouts();
+                } else {
+                    alert('Failed to post message');
+                }
+            })
+            .catch(err => console.log('Post error:', err));
+        }
+        
+        // Enter key to send
+        document.getElementById('shoutMessage')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                postShout();
+            }
+        });
+        
+        // Auto-refresh only when open
+        setInterval(function() {
+            const container = document.getElementById('shoutboxContainer');
+            if (!container.classList.contains('collapsed')) {
+                loadShouts();
+            }
+        }, 5000);
+    </script>
+    
+    <script src="assets/js/app.js"></script>
+    
+    <!-- Optional: Add your own tracking/analytics here -->
+    
+</body>
+</html>
